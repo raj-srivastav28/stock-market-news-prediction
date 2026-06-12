@@ -103,12 +103,30 @@ def engineer_features(input_path='../STOCK-MARKET-NEWS-PREDICTION/data/processed
     daily_std = df.groupby('Date')['Log_Return'].transform('std')
     df['Cross_Sectional_Z'] = (df['Log_Return'] - daily_mean) / daily_std
 
+
+    # extra features added 
+
+    # ==========================================
+    # 6.5 SENTIMENT FEATURE INTERACTIONS (NEW)
+    # ==========================================
+    # We multiply the Global Sentiment by Local Technicals to give the AI a localized text signal
+    
+    # 1. Sentiment x Volatility: Does good news make highly volatile stocks explode upward?
+    df['Sentiment_x_Vol'] = df['Macro_Sentiment'] * df['Volatility_14d']
+    
+    # 2. Sentiment x Momentum: Does good news act as fuel for stocks already breaking out?
+    df['Sentiment_x_ZScore'] = df['Macro_Sentiment'] * df['Cross_Sectional_Z']
+    
+    # 3. Sentiment x Price Trend: How does news impact stocks trading below their moving average?
+    df['Sentiment_x_SMA'] = df['Macro_Sentiment'] * df['Price_to_SMA_20']
+    print("added")
+
     
     # 7. CLEANUP & SAVE
     
     print("Dropping intermediate calculation columns and incomplete rows...")
     
-    cols_to_drop = ['SMA_20', 'Target_Fwd_Return', 'Price_Dir', 'OBV', 'OBV_SMA_20', 'MACD_Line', 'MACD_Signal']
+    cols_to_drop = ['SMA_20', 'Price_Dir', 'OBV', 'OBV_SMA_20', 'MACD_Line', 'MACD_Signal']
     df = df.drop(columns=cols_to_drop)
     
     # Drop rows that don't have enough history to calculate rolling features (e.g., first 26 days)
@@ -120,7 +138,9 @@ def engineer_features(input_path='../STOCK-MARKET-NEWS-PREDICTION/data/processed
     print(f"\nSUCCESS: Final ML Matrix saved with {len(df.columns)} columns.")
     print("Columns included in output:")
     print(list(df.columns))
+    
     print("==================================================")
 
+   
 if __name__ == "__main__":
     engineer_features()

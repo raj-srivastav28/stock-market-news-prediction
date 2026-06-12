@@ -110,11 +110,11 @@ def train_walk_forward(input_path='../STOCK-MARKET-NEWS-PREDICTION/data/processe
     print(f"IC Hit Rate (Days > 0):            {ic_hit_rate:.2%}")
     
     if mean_ic > 0.02:
-        print("-> ✅ ADAPTIVE EDGE: The rolling model successfully captured changing regimes.")
+        print("->ADAPTIVE EDGE: The rolling model successfully captured changing regimes.")
     elif mean_ic > 0.00:
         print("-> ⚖️ STABLE: The model is slightly positive but filtering heavy noise.")
     else:
-        print("-> 🔄 REGIME INVERSION: The rolling window is capturing a persistent anti-momentum effect.")
+        print("->REGIME INVERSION: The rolling window is capturing a persistent anti-momentum effect.")
 
     # 7. Average Feature Importance Across All Windows
     print("\nAverage Top 5 Features Across All Time Windows:")
@@ -125,7 +125,7 @@ def train_walk_forward(input_path='../STOCK-MARKET-NEWS-PREDICTION/data/processe
     # 8. Save Predictions for Backtester
     os.makedirs(os.path.dirname(output_predictions), exist_ok=True)
     final_predictions_df.to_csv(output_predictions, index=False)
-    print(f"\n✅ Rolling predictions saved to: {output_predictions}")
+    print(f"\nRolling predictions saved to: {output_predictions}")
     print("==================================================")
 
 if __name__ == "__main__":

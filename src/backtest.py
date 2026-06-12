@@ -12,7 +12,7 @@ def run_backtest(predictions_path='../STOCK-MARKET-NEWS-PREDICTION/data/processe
     try:
         df = pd.read_csv(predictions_path)
     except FileNotFoundError:
-        print("🚨 ERROR: test_predictions.csv not found. Run train_model.py first.")
+        print("ERROR: test_predictions.csv not found. Run train_model.py first.")
         return
         
     df['Date'] = pd.to_datetime(df['Date'])

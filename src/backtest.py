@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 import os
     
-def run_backtest(predictions_path='../STOCK-MARKET-NEWS-PREDICTION/data/processed/test_predictions.csv',
-                 output_path='../STOCK-MARKET-NEWS-PREDICTION/data/processed/backtest_results.csv',
+def run_backtest(predictions_path='data/processed/test_predictions.csv',
+                 output_path='data/processed/backtest_results.csv',
                  top_n=5):
     
     print("STARTING PHASE 6: Institutional Risk Parity Simulation...")

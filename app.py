@@ -6,7 +6,7 @@ import os
 import subprocess
 
 # Path to backtest results
-backtest_path = "/STOCK-MARKET-NEWS-PREDICTION/data/processed/backtest_results.csv"
+backtest_path = os.path.join("data", "processed", "backtest_results.csv")
 
 # Auto-run backtest if file is missing
 if not os.path.exists(backtest_path):
@@ -29,7 +29,7 @@ st.set_page_config(
 
 @st.cache_data
 def load_backtest_data():
-    file_path = "/STOCK-MARKET-NEWS-PREDICTION/data/processed/backtest_results.csv" 
+    file_path = os.path.join("data", "processed", "backtest_results.csv") 
     try:
         df = pd.read_csv(file_path)
         df['Date'] = pd.to_datetime(df['Date'])
